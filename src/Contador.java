@@ -5,20 +5,21 @@ public class Contador {
     public static void main(String[] args) throws ParametrosInvalidosException {
 
         Scanner terminal = new Scanner(System.in);
+        boolean sucesso = false;
 
-        int[] parametros = lerParametros(terminal);
+        while (!sucesso) {
+            int[] parametros = lerParametros(terminal);
 
-        try {
-            contar(parametros[0], parametros[1]);
+            try {
+                contar(parametros[0], parametros[1]);
+                sucesso = true;
+            } catch (ParametrosInvalidosException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Tente novamente...\n");
+            }
         }
-        catch (ParametrosInvalidosException e) {
-            e.getMessage();
-            parametros = lerParametros(terminal);
-            contar(parametros[0], parametros[1]);
-        }
-        finally {
-            terminal.close();
-        }
+
+        terminal.close();
     }
 
     static void contar(int parametroUm, int parametroDois) throws ParametrosInvalidosException {
